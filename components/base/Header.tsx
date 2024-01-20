@@ -2,7 +2,7 @@ import { Dropdown, Grid, Menu } from '@arco-design/web-react'
 import { IconDown } from '@arco-design/web-react/icon'
 import clsx from 'clsx'
 import Link from 'next/link'
-import Image from 'next/Image'
+import Image from 'next/image'
 import React from 'react'
 
 interface FoundationMenu {
