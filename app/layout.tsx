@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Barlow } from 'next/font/google'
 import '@/styles/tailwind.scss'
 import '@arco-design/web-react/dist/css/arco.css'
 import React from 'react'
 import { Providers } from '@/app/providers'
 
-const inter = Inter({ subsets: ['latin'] })
+const barlow = Barlow({ weight: '500', subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={barlow.className}>
         <Providers>
           {children}
         </Providers>

@@ -4,6 +4,7 @@ import React from 'react'
 import clsx from 'clsx'
 import { Button } from '@arco-design/web-react'
 import { useTheme } from 'next-themes'
+import Header from '@/components/base/Header'
 
 export default function Home() {
   const { theme, setTheme } = useTheme()
@@ -27,9 +28,12 @@ export default function Home() {
   }
 
   return (
-    <main className={clsx('text-[var(--primary-6)] text-lg cursor-pointer')}>
-      <Button type="primary" onClick={changeTheme}>Hello Arco</Button>
-      hello
-    </main>
+    <>
+      <Header></Header>
+      <main className={clsx('text-[var(--primary-6)] text-lg cursor-pointer')}>
+        <Button type="primary" onClick={changeTheme}>Hello Arco</Button>
+        hello
+      </main>
+    </>
   )
 }

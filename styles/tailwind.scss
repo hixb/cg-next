@@ -14,9 +14,35 @@ body {
 }
 
 [data-theme='light'] {
-  --primary-6: rgb(var(--arcoblue-6));
+   // 常规
+   --my-primary-6: #2061fa;
+   // 悬浮（hover）
+   --my-primary-5: #4583fa;
+   // 点击（click）
+   --my-primary-7: #1646cd;
+   // 特殊场景
+   --my-primary-4: #6da3fb;
+   // 一般禁用
+   --my-primary-3: #96c0fc;
+   // 文字禁用
+   --my-primary-2: #bfdbfd;
+   // 浅色/白底悬浮
+   --my-primary-1: #e9f3ff;
 }
 
 [data-theme='dark'] {
-  --primary-6: var(--primary-6)
+  // 常规
+  --my-primary-6: #3C7EFF;
+  // 悬浮（hover）
+  --my-primary-5: #3070FF;
+  // 点击（click）
+  --my-primary-7: #689FFF;
+  // 特殊场景
+  --my-primary-4: #1D4ED3;
+  // 一般禁用
+  --my-primary-3: #0E32A6;
+  // 文字禁用
+  --my-primary-2: #071e76;
+  // 浅色/白底悬浮
+  --my-primary-1: #020f4b;
 }
