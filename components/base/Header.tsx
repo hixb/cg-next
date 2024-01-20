@@ -1,5 +1,6 @@
-import { Dropdown, Grid, Menu } from '@arco-design/web-react'
-import { IconDown } from '@arco-design/web-react/icon'
+import { Dropdown, Grid, Menu, Switch } from '@arco-design/web-react'
+import { IconDown, IconMoon, IconSun } from '@arco-design/web-react/icon'
+import { useTheme } from 'next-themes'
 import clsx from 'clsx'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -12,6 +13,8 @@ interface FoundationMenu {
 }
 
 export default function Header() {
+  const { theme, setTheme } = useTheme()
+
   const userList: FoundationMenu[] = [
     { title: '登录', ident: 'login' },
     { title: '|', ident: 'line' },
@@ -46,6 +49,10 @@ export default function Header() {
     },
   ]
 
+  React.useEffect(() => {
+    theme && handleThemeChange(theme)
+  }, [theme])
+
   function handleDroplist(list: FoundationMenu[]) {
     return (
       <Menu>
@@ -60,11 +67,25 @@ export default function Header() {
     )
   }
 
+  function changeTheme() {
+    const newTheme = theme === 'dark' ? 'light' : 'dark'
+
+    setTheme(newTheme)
+    handleThemeChange(newTheme)
+  }
+
+  function handleThemeChange(theme: string) {
+    if (theme === 'dark')
+      document.body.setAttribute('arco-theme', 'dark')
+    else
+      document.body.removeAttribute('arco-theme')
+  }
+
   return (
     <header className={clsx('w-full h-20 bg-[var(--color-bg-2)]')}>
-      <Grid.Row className={clsx('px-10')}>
+      <Grid.Row className={'px-10'}>
         <Grid.Col flex={'260px'}>
-          <h1 className={clsx('flex items-center m-0')}>
+          <h1 className={'flex items-center m-0'}>
             <Link href={'/'}>
               <Image src="https://www.cg99.com/image/logo.png" width={130} height={70} alt="" />
             </Link>
@@ -72,12 +93,15 @@ export default function Header() {
           </h1>
         </Grid.Col>
         <Grid.Col flex={'auto'}>Menu</Grid.Col>
-        <Grid.Col flex={'200px'} className={clsx('h-20 flex items-center justify-between')}>
+        <Grid.Col flex={'80px'} className={'flex items-center justify-center h-20'}>
+          <Switch checkedIcon={<IconSun />} uncheckedIcon={<IconMoon />} size="default" onChange={changeTheme} />
+        </Grid.Col>
+        <Grid.Col flex={'200px'} className={'h-20 flex items-center justify-between'}>
           {
             menus.map(v => (
               <Dropdown droplist={v.droplist} position='bottom' key={v.ident}>
-                <div className={clsx('w-full h-full flex items-center justify-center')}>
-                  <div className={clsx('hover:text-[var(--my-primary-6)] cursor-pointer')}>
+                <div className={'w-full h-full flex items-center justify-center'}>
+                  <div className={'hover:text-[var(--my-primary-6)] cursor-pointer'}>
                     {v.title}
                     { v.droplist ? <IconDown /> : null }
                   </div>
@@ -86,8 +110,17 @@ export default function Header() {
             ))
           }
         </Grid.Col>
-        <Grid.Col flex={'116px'} className={clsx('flex items-center justify-center h-20')}>
-          {userList.map(item => <span key={item.ident} className={clsx('cursor-pointer hover:text-[var(--my-primary-6)]', { 'mx-2.5 !text-[var(--color-text-1)]  !cursor-default': item.ident === 'line' })}>{item.title}</span>)}
+        <Grid.Col flex={'116px'} className={'flex items-center justify-center h-20'}>
+          {
+            userList.map(item =>
+              <span
+                key={item.ident}
+                className={clsx('cursor-pointer hover:text-[var(--my-primary-6)]', { 'mx-2.5 !text-[var(--color-text-1)] !cursor-default': item.ident === 'line' })}
+              >
+                {item.title}
+              </span>,
+            )
+          }
         </Grid.Col>
       </Grid.Row>
     </header>

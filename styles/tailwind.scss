@@ -1,4 +1,4 @@
-@tailwind base;
+// @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -45,4 +45,9 @@ body {
   --my-primary-2: #071e76;
   // 浅色/白底悬浮
   --my-primary-1: #020f4b;
+}
+
+.arco-icon {
+  font-size: 32;
+  stroke-width: 1;
 }
