@@ -49,6 +49,23 @@ export default function Header() {
     },
   ]
 
+  const navs = [
+    {
+      title: '首页',
+      link: '/',
+      subLinks: null,
+    },
+    {
+      title: 'CG模型',
+      link: '/',
+      subLinks: {
+        left: [
+          { title: '' },
+        ],
+      },
+    },
+  ]
+
   React.useEffect(() => {
     theme && handleThemeChange(theme)
   }, [theme])
