@@ -9,7 +9,7 @@ main {
     animation-direction: normal;
   }
 
-  :global {
+  .globalStyles {
     .arco-carousel-arrow-left, .arco-carousel-arrow-right {
       @apply w-52 h-52 transition-[var(--transition-base)];
 
