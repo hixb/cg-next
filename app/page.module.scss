@@ -8,7 +8,9 @@ main {
     animation: marquee 50s linear infinite;
     animation-direction: normal;
   }
+}
 
+.myCarousel {
   :global(.arco-carousel-arrow-left), :global(.arco-carousel-arrow-right) {
     @apply w-52 h-52 transition-[var(--transition-base)];
 
