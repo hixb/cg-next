@@ -1,9 +1,19 @@
 main {
+  .marqueeAnimationFirst {
+    animation: marquee 60s linear infinite;
+    animation-direction: normal;
+  }
+
+  .marqueeAnimationLast {
+    animation: marquee 50s linear infinite;
+    animation-direction: normal;
+  }
+
   :global {
     .arco-carousel-arrow-left, .arco-carousel-arrow-right {
       @apply w-52 h-52 transition-[var(--transition-base)];
 
-      svg {
+      :global svg {
         font-size: 30px;
       }
     }
@@ -35,16 +45,6 @@ main {
         @apply w-26 rounded-full transition-[var(--transition-base)];
       }
     }
-  }
-
-  .marqueeAnimationFirst {
-    animation: marquee 60s linear infinite;
-    animation-direction: normal;
-  }
-
-  .marqueeAnimationLast {
-    animation: marquee 50s linear infinite;
-    animation-direction: normal;
   }
 }
 
