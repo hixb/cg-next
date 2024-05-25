@@ -96,7 +96,7 @@ export default function Home() {
         <p>1</p>
       </Dialog>
       <Carousel
-        className={clsx('mx-auto')}
+        className={clsx('mx-auto', [styles.myCarousel])}
         indicatorPosition="bottom"
         style={{ maxWidth: 1920, height: 600 }}
         autoPlay={{ interval: 500000 }}
