@@ -1,9 +1,12 @@
+import React from 'react'
 import type { Metadata } from 'next'
 import { Barlow } from 'next/font/google'
+
 import '@/styles/tailwind.scss'
-import '@arco-design/web-react/dist/css/arco.css'
-import React from 'react'
+import '@arco-themes/react-cg-next/css/arco.css'
+
 import { Providers } from '@/app/providers'
+import Header from '@/components/base/Header'
 
 const barlow = Barlow({ weight: '500', subsets: ['latin'] })
 
@@ -14,11 +17,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body className={barlow.className}>
+    <html lang="en" suppressHydrationWarning={true}>
+      {/* eslint-disable-next-line react/no-unknown-property */}
+      <body className={barlow.className} arco-theme="dark" suppressHydrationWarning={true}>
         <Providers>
+          <Header />
           {children}
         </Providers>
+
+        <script src="/utils/firstExecution.ts" />
       </body>
     </html>
   )

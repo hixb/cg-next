@@ -1,145 +1,304 @@
-import { Dropdown, Grid, Menu, Switch } from '@arco-design/web-react'
-import { IconDown, IconMoon, IconSun } from '@arco-design/web-react/icon'
-import { useTheme } from 'next-themes'
-import clsx from 'clsx'
-import Link from 'next/link'
-import Image from 'next/image'
-import React from 'react'
+'use client'
 
-interface FoundationMenu {
+import React from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+
+import { Avatar, Button, Dropdown, Input, Menu, Message, Modal, Tooltip } from '@arco-design/web-react'
+import {
+  IconBold, IconBug,
+  IconCamera,
+  IconDown,
+  IconExperiment,
+  IconSearch,
+  IconTranslate,
+  IconUpload,
+} from '@arco-design/web-react/icon'
+import autoAnimate from '@formkit/auto-animate'
+import clsx from 'clsx'
+
+import { REC } from '@/components/auth/Rac'
+
+interface NavInterface {
   title: string
-  ident: string
-  droplist?: React.JSX.Element
+  link: string
+  sub?: NavInterface[]
 }
 
-export default function Header() {
-  const { theme, setTheme } = useTheme()
+interface DefinedPropsTypes {
+  useBackground?: 'blur' | 'dark' | 'normal'
+  useMode?: 'static' | 'fixed' | 'sticky'
+}
 
-  const userList: FoundationMenu[] = [
-    { title: '登录', ident: 'login' },
-    { title: '|', ident: 'line' },
-    { title: '注册', ident: 'register' },
-  ]
+export default function Header(props: DefinedPropsTypes) {
+  const { useBackground = 'blur', useMode = 'fixed' } = props
 
-  const menus: FoundationMenu[] = [
-    {
-      title: '发布',
-      ident: 'releases',
-      droplist: handleDroplist([
-        { title: '发布模型', ident: 'model' },
-        { title: '发布资源', ident: 'resource' },
-        { title: '发布作品', ident: 'works' },
-        { title: '发布文章', ident: 'article' },
-        { title: '发布壁纸', ident: 'wallpaper' },
-      ]),
-    },
-    { title: '签到', ident: 'sign', droplist: undefined },
-    { title: '充值', ident: 'recharge', droplist: undefined },
-    {
-      title: '消息',
-      ident: 'message',
-      droplist: handleDroplist([
-        { title: '系统消息', ident: 'system' },
-        { title: '站内信', ident: 'site' },
-        { title: '评论', ident: 'comment' },
-        { title: '关注', ident: 'concern' },
-        { title: '获赞', ident: 'like' },
-        { title: '课程留言', ident: 'course' },
-      ]),
-    },
-  ]
+  const [avatarState, setAvatarState] = React.useState(false)
+  const useUserAuth = React.useRef<HTMLDivElement | null>(null)
 
-  const navs = [
-    {
-      title: '首页',
-      link: '/',
-      subLinks: null,
-    },
-    {
-      title: 'CG模型',
-      link: '/',
-      subLinks: {
-        left: [
-          { title: '' },
-        ],
-      },
-    },
-  ]
+  const [inputValue, setInputValue] = React.useState('')
 
   React.useEffect(() => {
-    theme && handleThemeChange(theme)
-  }, [theme])
+    const current = useUserAuth.current
 
-  function handleDroplist(list: FoundationMenu[]) {
-    return (
-      <Menu>
-        {
-          list.map(v => (
-            <Menu.Item key={v.ident}>
-              <Link href={''}>{v.title}</Link>
-            </Menu.Item>
-          ))
-        }
-      </Menu>
-    )
-  }
+    current && autoAnimate(current)
+  }, [useUserAuth])
 
-  function changeTheme() {
-    const newTheme = theme === 'dark' ? 'light' : 'dark'
+  const navs: NavInterface[] = [
+    { title: '首页', link: '/', sub: [] },
+    { title: 'CG模型', link: '/', sub: [] },
+    { title: 'CG资源', link: '/', sub: [] },
+    { title: 'VIP专区', link: '/', sub: [] },
+    { title: '作品', link: '/', sub: [] },
+    { title: '课程', link: '/', sub: [] },
+    { title: 'AI创作', link: '/', sub: [] },
+    { title: '数字人生', link: '/', sub: [] },
+    {
+      title: '更多',
+      link: '/',
+      sub: [
+        { title: '哈哈哈哈哈哈', link: '/' },
+        { title: '哈哈哈哈哈哈', link: '/' },
+        { title: '哈哈哈哈哈哈', link: '/' },
+        { title: '哈哈哈哈哈哈', link: '/' },
+        { title: '哈哈哈哈哈哈', link: '/' },
+        { title: '哈哈哈哈哈哈', link: '/' },
+        { title: '哈哈哈哈哈哈', link: '/' },
+        { title: '哈哈哈哈哈哈', link: '/' },
+        { title: '哈哈哈哈哈哈', link: '/' },
+        { title: '哈哈哈哈哈哈', link: '/' },
+        { title: '哈哈哈哈哈哈', link: '/' },
+      ],
+    },
+  ]
 
-    setTheme(newTheme)
-    handleThemeChange(newTheme)
-  }
+  const menus = [
+    {
+      icon: <IconUpload style={{ fontSize: 24 }} />,
+      title: '发布',
+      link: '/',
+      sub: [
+        { title: '哈哈哈哈哈哈', link: '/' },
+        { title: '哈哈哈哈哈哈', link: '/' },
+        { title: '哈哈哈哈哈哈', link: '/' },
+        { title: '哈哈哈哈哈哈', link: '/' },
+      ],
+    },
+    { icon: <IconBold style={{ fontSize: 24 }} />, title: '充值', link: '/' },
+    { icon: <IconExperiment style={{ fontSize: 24 }} />, title: '购物车', link: '/' },
+  ]
 
-  function handleThemeChange(theme: string) {
-    if (theme === 'dark')
-      document.body.setAttribute('arco-theme', 'dark')
-    else
-      document.body.removeAttribute('arco-theme')
+  function changeLoginState() {
+    REC.Login.State(true, () => console.error(1))
+
+    if (avatarState) {
+      const modalIns = Modal.confirm({
+        title: '提示',
+        content: '是否退出登录?',
+        okButtonProps: {
+          status: 'danger',
+        },
+        onOk: async () => {
+          try {
+            return await new Promise(
+              (resolve, reject) => setTimeout(() => {
+                setAvatarState(!avatarState)
+                Message.success('已退出登录')
+                modalIns.close()
+                return Math.random() > 0.5 ? resolve : reject
+              }, 1000),
+            )
+          }
+          catch (evt) {
+            modalIns.close()
+            Message.error('Error occurs!')
+            throw evt
+          }
+        },
+      })
+    }
+    else {
+      Message.success('已登录')
+      setAvatarState(!avatarState)
+    }
   }
 
   return (
-    <header className={clsx('w-full h-20 bg-[var(--color-bg-2)]')}>
-      <Grid.Row className={'px-10'}>
-        <Grid.Col flex={'260px'}>
-          <h1 className={'flex items-center m-0'}>
-            <Link href={'/'}>
-              <Image src="https://www.cg99.com/image/logo.png" width={130} height={70} alt="" />
-            </Link>
-            <Image src="https://www.cg99.com/image/slogen.png" width={130} height={80} alt="" />
-          </h1>
-        </Grid.Col>
-        <Grid.Col flex={'auto'}>Menu</Grid.Col>
-        <Grid.Col flex={'80px'} className={'flex items-center justify-center h-20'}>
-          <Switch checkedIcon={<IconSun />} uncheckedIcon={<IconMoon />} size="default" onChange={changeTheme} />
-        </Grid.Col>
-        <Grid.Col flex={'200px'} className={'h-20 flex items-center justify-between'}>
+    <header
+      className={clsx(
+        [
+          'max-w-1920 w-full h-80 px-88 flex items-center justify-between',
+          useBackground === 'blur' ? 'backdrop-blur-sm' : useBackground === 'dark' ? 'bg-[#171717]' : '',
+          [
+            useMode,
+            {
+              'left-1/2 -translate-x-1/2': useMode === 'fixed',
+              'top-0 z-10': (['sticky', 'fixed'] as DefinedPropsTypes['useMode'][]).includes(useMode),
+            },
+          ],
+        ],
+      )}
+    >
+      <div className={clsx('flex items-center')}>
+        <h1>
+          <Link href="/" className={clsx('flex')}>
+            <Image
+              loading="eager"
+              src="/static/site/logo.png"
+              alt="CG99设计网-数字艺术共生平台"
+              width={130}
+              height={70}
+            />
+            <Image
+              loading="eager"
+              className={clsx('ml-6')}
+              src="/static/site/slogan.png"
+              alt="数字艺术共生平台"
+              width={130}
+              height={80}
+            />
+          </Link>
+        </h1>
+        <ul className={clsx('ml-41 flex')}>
           {
-            menus.map(v => (
-              <Dropdown droplist={v.droplist} position='bottom' key={v.ident}>
-                <div className={'w-full h-full flex items-center justify-center'}>
-                  <div className={'hover:text-[var(--my-primary-6)] cursor-pointer'}>
-                    {v.title}
-                    { v.droplist ? <IconDown /> : null }
-                  </div>
-                </div>
-              </Dropdown>
+            navs.map((nav, index) => (
+              <li key={index} className={clsx('ml-35 first:ml-0 hover:text-special', { 'text-special': index === 0 })}>
+                {
+                  nav.sub?.length
+                    ? (
+                      <Dropdown
+                        position="bottom"
+                        droplist={(
+                          <Menu>
+                            {
+                              nav.sub.map((sub, subIndex) => (
+                                <Menu.Item key={String(subIndex)}>
+                                  <Link href={sub.link} title={sub.title}>
+                                    {sub.title}
+                                  </Link>
+                                </Menu.Item>
+                              ))
+                            }
+                          </Menu>
+                        )}
+                      >
+                        <Link href={nav.link} title={nav.title}>
+                          {nav.title}
+                          <IconDown style={{ fontSize: 12, marginLeft: 6 }} />
+                        </Link>
+                      </Dropdown>
+                      )
+                    : (
+                      <Link href={nav.link} title={nav.title}>
+                        {nav.title}
+                      </Link>
+                      )
+                }
+              </li>
             ))
           }
-        </Grid.Col>
-        <Grid.Col flex={'116px'} className={'flex items-center justify-center h-20'}>
+        </ul>
+      </div>
+      <div className={clsx('flex items-center h-full')}>
+        <Dropdown
+          position="bl"
+          trigger="click"
+          droplist={(
+            <Menu style={{ width: 284 }}>
+              {
+                Array.from({ length: 10 }).map((_, index) => (
+                  <Menu.Item key={String(index)} onClick={() => setInputValue(`Menu Item ${index}`)}>
+                    Menu Item{index}
+                  </Menu.Item>
+                ))
+              }
+            </Menu>
+          )}
+        >
+          <Input
+            style={{ width: 284, height: 38 }}
+            prefix={<IconSearch style={{ fontSize: 20 }} />}
+            suffix={<IconCamera style={{ fontSize: 20 }} />}
+            placeholder="搜索作品、素材、创作人、机构"
+            allowClear
+            value={inputValue}
+            onChange={e => setInputValue(e.replace(/[<>[\]]/, ''))}
+          />
+        </Dropdown>
+        <div className={clsx('flex items-center ml-24')}>
           {
-            userList.map(item =>
-              <span
-                key={item.ident}
-                className={clsx('cursor-pointer hover:text-[var(--my-primary-6)]', { 'mx-2.5 !text-[var(--color-text-1)] !cursor-default': item.ident === 'line' })}
-              >
-                {item.title}
-              </span>,
-            )
+            menus.map(menu => (
+              menu.sub?.length
+                ? (
+                  <Dropdown
+                    droplist={(
+                      <Menu>
+                        {
+                          menu.sub.map((sub, subIndex) => (
+                            <Menu.Item key={String(subIndex)} className={clsx('hover:text-special')}>
+                              <Link href={sub.link} title={sub.title}>
+                                <IconBug className={clsx('mr-5')} />
+                                {sub.title}
+                              </Link>
+                            </Menu.Item>
+                          ))
+                        }
+                      </Menu>
+                    )}
+                    position="bottom"
+                    key={menu.title}
+                  >
+                    <Link
+                      className={clsx('flex flex-col items-center ml-26 first:ml-0 hover:text-special')}
+                      href={menu.link}
+                      key={menu.title}
+                    >
+                      {menu.icon}
+                      <span>{menu.title}</span>
+                    </Link>
+                  </Dropdown>
+                  )
+                : (
+                  <Link className={clsx('flex flex-col items-center ml-26 first:ml-0 hover:text-special')} href={menu.link} key={menu.title}>
+                    {menu.icon}
+                    <span>{menu.title}</span>
+                  </Link>
+                  )
+            ))
           }
-        </Grid.Col>
-      </Grid.Row>
+        </div>
+        <div className={clsx('w-99 flex items-center justify-center h-full ml-24 select-none')} ref={useUserAuth}>
+          {
+            !avatarState
+              ? (
+                <Button onClick={changeLoginState} className={clsx('h-38 rounded-full')} type="primary">
+                  <span className={clsx('after:content-["|"] after:mx-5')}>登录</span>
+                  <span>注册</span>
+                </Button>
+                )
+              : (
+                <Avatar className={clsx('border border-white')} onClick={changeLoginState} size={48}>
+                  Hello
+                </Avatar>
+                )
+          }
+        </div>
+        <Dropdown
+          position="bottom"
+          trigger="click"
+          droplist={(
+            <Menu>
+              {
+                ['简体中文 (默认)', 'English'].map(lang => <Menu.Item key={lang}>{lang}</Menu.Item>)
+              }
+            </Menu>
+          )}
+        >
+          <Tooltip position='bottom' trigger='hover' content='更改语言 (Change Language)'>
+            <IconTranslate className={clsx('ml-24 cursor-pointer hover:text-special')} style={{ fontSize: 38 }} />
+          </Tooltip>
+        </Dropdown>
+      </div>
     </header>
   )
 }

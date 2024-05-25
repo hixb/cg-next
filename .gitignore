@@ -24,6 +24,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.log*
+*.log
 
 # local env files
 .env*.local
@@ -38,3 +40,6 @@ next-env.d.ts
 # editor
 /.idea
 /.vscode
+
+# environment variables
+.env

@@ -1,0 +1,32 @@
+::-webkit-scrollbar {
+  width: 4px;
+  height: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #808080;
+  border-radius: 4px;
+}
+
+body {
+  background-color: var(--color-bg-1);
+  color: var(--color-text-1);
+}
+
+a {
+  transition: var(--transition-base);
+
+  &:hover {
+    transition: var(--transition-base);
+  }
+}
+
+.dialog {
+  .arco-modal-close-icon {
+    @apply -right-30 top-0 text-xl leading-none;
+
+    &:before {
+      @apply w-35 h-35;
+    }
+  }
+}

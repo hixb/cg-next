@@ -1,0 +1,59 @@
+main {
+  :global {
+    .arco-carousel-arrow-left, .arco-carousel-arrow-right {
+      @apply w-52 h-52 transition-[var(--transition-base)];
+
+      svg {
+        font-size: 30px;
+      }
+    }
+
+    .arco-carousel-arrow-left {
+      @apply left-88;
+    }
+
+    .arco-carousel-arrow-right {
+      @apply right-88;
+    }
+
+    .arco-carousel-indicator-bottom {
+      @apply bottom-24;
+    }
+
+    .arco-carousel-indicator-wrapper-bottom {
+      @apply w-max left-1/2 -translate-x-1/2;
+    }
+
+    .arco-carousel-indicator {
+      @apply rounded-full py-10 px-20 bg-lightTransparent;
+
+      .arco-carousel-indicator-item {
+        @apply bg-white transition-[var(--transition-base)];
+      }
+
+      .arco-carousel-indicator-item-active {
+        @apply w-26 rounded-full transition-[var(--transition-base)];
+      }
+    }
+  }
+
+  .marqueeAnimationFirst {
+    animation: marquee 60s linear infinite;
+    animation-direction: normal;
+  }
+
+  .marqueeAnimationLast {
+    animation: marquee 50s linear infinite;
+    animation-direction: normal;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-4029px);
+  }
+}
